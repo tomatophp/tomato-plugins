@@ -5,7 +5,9 @@
     "keywords": [
         "php",
         "laravel",
-        "template"
+        "plugins",
+        "tomatophp",
+        "splade"
     ],
     "license": "MIT",
     "autoload": {
