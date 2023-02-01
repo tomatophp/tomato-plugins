@@ -10,14 +10,6 @@ Plugins installer for Tomato PHP framework
 composer require tomatophp/tomato-plugins
 ```
 
-## Using
-
-you can run this command to get all plugins from Tomato Framework
-
-```bash
-php artisan tomato:plugins
-```
-
 ## Support
 
 you can join our discord server to get support [TomatoPHP](https://discord.gg/Xqmt35Uh)
