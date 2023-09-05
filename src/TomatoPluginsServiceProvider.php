@@ -22,6 +22,10 @@ class TomatoPluginsServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom(__DIR__.'/../config/tomato-plugins.php', 'tomato-plugins');
 
+        $this->publishes([
+            __DIR__.'/../config/tomato-plugins.php' => config_path('tomato-plugins.php'),
+        ], 'tomato-plugins-config');
+
     }
 
     public function boot(): void
