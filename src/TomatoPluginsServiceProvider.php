@@ -20,19 +20,22 @@ class TomatoPluginsServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'tomato-plugins');
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->mergeConfigFrom(__DIR__.'/../config/tomato-plugins.php', 'tomato-plugins');
 
     }
 
     public function boot(): void
     {
+        if((bool)config('tomato-plugins.active_ui')){
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
-        TomatoMenu::register([
-            Menu::make()
-                ->group(__('Settings'))
-                ->label(__('Plugins'))
-                ->route('admin.plugins.index')
-                ->icon('bx bxs-plug')
-        ]);
+            TomatoMenu::register([
+                Menu::make()
+                    ->group(__('Settings'))
+                    ->label(__('Plugins'))
+                    ->route('admin.plugins.index')
+                    ->icon('bx bxs-plug')
+            ]);
+        }
     }
 }
