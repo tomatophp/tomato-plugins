@@ -34,14 +34,12 @@ class TomatoPluginsInstall extends Command
         $all = $this->ask('🍅 Do You went to install all plugins for tomato framework? [yes/no]', 'yes');
         if($all === 'y' || $all === 'yes' || $all === null){
             $this->installRoles();
-            $this->installComponents();
             $this->installSettings();
             $this->installNotifications();
             $this->installBackup();
             $this->installLog();
             $this->installAPI();
             $this->installLocations();
-            $this->installSubscription();
             $this->installTranslations();
             $this->info('🍅 All Tomato Framework Plugins Has Been installed successfully.');
         }
@@ -51,13 +49,6 @@ class TomatoPluginsInstall extends Command
             $install = $this->ask('🍅 Install Tomato Roles? [yes/no]', 'yes');
             if($install === 'y' || $install === 'yes' || $install === null){
                 $this->installRoles();
-            }
-
-            $this->info('🍅 Tomato Components');
-            $this->info('Tons of components for Splade and tomato php framework');
-            $install = $this->ask('🍅 Install Tomato Components? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installComponents();
             }
 
             $this->info('🍅 Tomato Settings');
@@ -101,14 +92,7 @@ class TomatoPluginsInstall extends Command
             if($install === 'y' || $install === 'yes' || $install === null){
                 $this->installLocations();
             }
-
-            $this->info('🍅 Tomato Subscription');
-            $this->info('Plan subscription with selected features to build a feature control plan for Tomato');
-            $install = $this->ask('🍅 Install Tomato Subscription? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installSubscription();
-            }
-
+            
             $this->info('🍅 Tomato Translations');
             $this->info('Database Base Translations Keys with Google Translations API Integration');
             $install = $this->ask('🍅 Install Tomato Translations? [yes/no]', 'yes');
@@ -135,15 +119,6 @@ class TomatoPluginsInstall extends Command
         $this->info('🍅 Tomato Roles installed successfully.');
     }
 
-    /**
-     * @return void
-     */
-    public function installComponents(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-components');
-        $this->artisanCommand(['tomato-components:install']);
-        $this->info('🍅 Tomato Components installed successfully.');
-    }
     /**
      * @return void
      */
@@ -209,15 +184,7 @@ class TomatoPluginsInstall extends Command
         $this->artisanCommand(['tomato-locations:install']);
         $this->info('🍅 Tomato Locations installed successfully.');
     }
-    /**
-     * @return void
-     */
-    public function installSubscription(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-subscription');
-        $this->artisanCommand(['tomato-subscription:install']);
-        $this->info('🍅 Tomato Subscription installed successfully.');
-    }
+
     /**
      * @return void
      */
