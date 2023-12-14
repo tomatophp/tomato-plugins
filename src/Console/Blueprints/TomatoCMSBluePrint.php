@@ -16,6 +16,7 @@ class TomatoCMSBluePrint extends Blueprint
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoLocations::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoNotifications::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoCategory::class,
+            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoForms::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoMenus::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoCrm::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoWallet::class,
