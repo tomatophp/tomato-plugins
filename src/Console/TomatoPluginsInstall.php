@@ -3,7 +3,45 @@
 namespace TomatoPHP\TomatoPlugins\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use TomatoPHP\ConsoleHelpers\Traits\RunCommand;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoApi;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoArtisan;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoBackup;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoBrowser;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoBuilder;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoCategory;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoChat;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoCms;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoCoupons;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoCrm;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoDusk;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoEcommerce;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoFigma;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoFlutter;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoForms;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoInventory;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoInvoices;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoLocations;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoLogs;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoMenus;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoNotifications;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoOrders;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoPHP;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoPos;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoProducts;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoRoles;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoSaas;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoSections;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoSettings;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoSubscription;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoThemes;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoTranslations;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoWallet;
+use function Laravel\Prompts\confirm;
+use function Laravel\Prompts\multiselect;
+use function Laravel\Prompts\select;
 
 class TomatoPluginsInstall extends Command
 {
@@ -31,167 +69,97 @@ class TomatoPluginsInstall extends Command
      */
     public function handle()
     {
-        $all = $this->ask('🍅 Do You went to install all plugins for tomato framework? [yes/no]', 'yes');
-        if($all === 'y' || $all === 'yes' || $all === null){
-            $this->installRoles();
-            $this->installSettings();
-            $this->installNotifications();
-            $this->installBackup();
-            $this->installLog();
-            $this->installAPI();
-            $this->installLocations();
-            $this->installTranslations();
-            $this->info('🍅 All Tomato Framework Plugins Has Been installed successfully.');
+        $pluginsScan = File::files(__DIR__ .'/Packages');
+        $pluginsNamesCollection = collect($pluginsScan)->filter(function ($item){
+            if(!Str::of($item->getFileName())->contains('TomatoPackage')){
+                return $item;
+            }
+        });
+        $pluginsNames = [];
+        foreach ($pluginsNamesCollection as $pluginNameItem){
+            $className = Str::of($pluginNameItem->getFileName())->remove('.php')->toString();
+            $getClass = app('TomatoPHP\\TomatoPlugins\\Console\\Packages\\' . $className);
+            $pluginsNames[$className] = $getClass->getLabel();
         }
-        else {
-            $this->info('🍅 Tomato Roles');
-            $this->info('ACL Roles / Permissions build on Laravel Spatie Permissions with GUI');
-            $install = $this->ask('🍅 Install Tomato Roles? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installRoles();
+        $blueprintScan = File::files(__DIR__ .'/Blueprints');
+        $blueprintNamesCollection = collect($blueprintScan)->filter(function ($item){
+            if(!Str::of($item->getFileName())->contains('Blueprint')){
+                return $item;
             }
-
-            $this->info('🍅 Tomato Settings');
-            $this->info('Full Settings Generator / Manager with GUI Build on Spatie Laravel Settings');
-            $install = $this->ask('🍅 Install Tomato Settings? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installSettings();
-            }
-
-            $this->info('🍅 Tomato Notifications');
-            $this->info('Laravel Notifications Channel with GUI to send notifications with templates');
-            $install = $this->ask('🍅 Install Tomato Notifications? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installNotifications();
-            }
-
-            $this->info('🍅 Tomato Backup');
-            $this->info('Backup module for VILT Stack build with spatie laravel-backup');
-            $install = $this->ask('🍅 Install Tomato Backup? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installBackup();
-            }
-
-            $this->info('🍅 Tomato Logs');
-            $this->info('Log Viewer for VILT Stack using Laravel Log Reader');
-            $install = $this->ask('🍅 Install Tomato Logs? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installLog();
-            }
-
-            $this->info('🍅 Tomato API');
-            $this->info('Full API CRUD Generator build on repository pattern');
-            $install = $this->ask('🍅 Install Tomato API? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installAPI();
-            }
-
-            $this->info('🍅 Tomato Locations');
-            $this->info('Database seeds for Locations Module for Tomato Framework');
-            $install = $this->ask('🍅 Install Tomato Locations? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installLocations();
-            }
-            
-            $this->info('🍅 Tomato Translations');
-            $this->info('Database Base Translations Keys with Google Translations API Integration');
-            $install = $this->ask('🍅 Install Tomato Translations? [yes/no]', 'yes');
-            if($install === 'y' || $install === 'yes' || $install === null){
-                $this->installTranslations();
-            }
-
-            $this->info('🍅 Thanks for using our framework place a star on github');
-            $this->info('see: https://github.com/TomatoPHP/tomato-admin');
-            $this->info('docs: https://TomatoPHP.gitbook.io/tomato-admin/');
+        });
+        $blueprintNames = [];
+        foreach ($blueprintNamesCollection as $bluePrintNameItem){
+            $className = Str::of($bluePrintNameItem->getFileName())->remove('.php')->toString();
+            $getClass = app('TomatoPHP\\TomatoPlugins\\Console\\Blueprints\\' . $className);
+            $blueprintNames[$className] = $getClass->getLabel();
         }
-    }
+        $all = confirm('Do You went to install all plugins for tomato framework?');
+        if ($all) {
+            (new TomatoApi())->install();
+            (new TomatoPHP())->install();
+            (new TomatoRoles())->install();
+            (new TomatoSettings())->install();
+            (new TomatoTranslations())->install();
+            (new TomatoLocations())->install();
+            (new TomatoNotifications())->install();
+            (new TomatoCategory())->install();
+            (new TomatoMenus())->install();
+            (new TomatoCrm())->install();
+            (new TomatoWallet())->install();
+            (new TomatoCms())->install();
+            (new TomatoProducts())->install();
+            (new TomatoCoupons())->install();
+            (new TomatoOrders())->install();
+            (new TomatoInventory())->install();
+            (new TomatoInvoices())->install();
+            (new TomatoEcommerce())->install();
+            (new TomatoThemes())->install();
+            (new TomatoSections())->install();
+            (new TomatoPos())->install();
+            (new TomatoChat())->install();
+            (new TomatoForms())->install();
+            (new TomatoFlutter())->install();
+            (new TomatoBuilder())->install();
+            (new TomatoBackup())->install();
+            (new TomatoLogs())->install();
+            (new TomatoBrowser())->install();
+            (new TomatoArtisan())->install();
+            (new TomatoDusk())->install();
+            (new TomatoFigma())->install();
+            (new TomatoSaas())->install();
+            (new TomatoSubscription())->install();
+            \Laravel\Prompts\info('🍅 All Tomato Framework Plugins Has Been installed successfully.');
+        } else {
+            $installBluePrint = confirm('Do You went to install a blueprint for your project?');
+            if ($installBluePrint) {
+                $blueprint = select(
+                    label: 'Select Blueprint you when to create',
+                    options: $blueprintNames,
+                    required: true
+                );
+                app('TomatoPHP\\TomatoPlugins\\Console\\Blueprints\\' . $blueprint)->install();
+            }
+            else {
+                $installSelectedPlugins = confirm('Do You went to install a selected plugins for your project?');
+                if($installSelectedPlugins){
+                    $selectedPlugins = multiselect(
+                        label:'Select plugins you went to install',
+                        options: $pluginsNames,
+                        required: true
+                    );
 
-    /**
-     * @return void
-     */
-    public function installRoles(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-roles');
-        $this->artisanCommand(['tomato-roles:install']);
-        $this->info('add [use HasRoles;] to your User model');
-        $this->info('email: admin@admin.com');
-        $this->info('password: QTS@2022');
-        $this->info('🍅 Tomato Roles installed successfully.');
-    }
+                    foreach ($selectedPlugins as $pluginItem){
+                        app('TomatoPHP\\TomatoPlugins\\Console\\Packages\\' . $pluginItem)->install();
+                    }
+                }
+            }
+        }
 
-    /**
-     * @return void
-     */
-    public function installSettings(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-settings');
-        $this->artisanCommand(['tomato-settings:install']);
-        $this->info('🍅 Tomato Settings installed successfully.');
-    }
-    /**
-     * @return void
-     */
-    public function installNotifications(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-notifications');
-        $this->artisanCommand(['tomato-notifications:install']);
-        $this->info('add [use InteractWithNotifications;] to your User model');
-        $this->info('up queue by use [php artisan queue:work]');
-        $this->info('🍅 Tomato Notifications installed successfully.');
-    }
-    /**
-     * @return void
-     */
-    public function installBackup(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-backup');
-        $this->artisanCommand(['tomato-backup:install']);
-        $this->info('🍅 Tomato Backup installed successfully.');
-    }
-    /**
-     * @return void
-     */
-    public function installLog(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-logs');
-        $this->artisanCommand(['tomato-logs:install']);
-        $this->info('🍅 Tomato Logs installed successfully.');
-    }
-    /**
-     * @return void
-     */
-    public function installAPI(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-api');
-        $this->artisanCommand(['tomato-api:install']);
-        $this->info('🍅 Tomato API installed successfully.');
-    }
-    /**
-     * @return void
-     */
-    public function installForms(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-forms');
-        $this->artisanCommand(['tomato-forms:install']);
-        $this->info('🍅 Tomato Forms installed successfully.');
-    }
-    /**
-     * @return void
-     */
-    public function installLocations(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-locations');
-        $this->artisanCommand(['tomato-locations:install']);
-        $this->info('🍅 Tomato Locations installed successfully.');
-    }
-
-    /**
-     * @return void
-     */
-    public function installTranslations(): void
-    {
-        $this->requireComposerPackages('tomatophp/tomato-translations');
-        $this->artisanCommand(['tomato-translations:install']);
-        $this->info('🍅 Tomato Translations installed successfully.');
+        \Laravel\Prompts\info('🍅 Thanks for using Tomato Plugins & TomatoPHP framework');
+        \Laravel\Prompts\info('💼 Join support server on discord https://discord.gg/VZc8nBJ3ZU');
+        \Laravel\Prompts\info('📄 You can check docs here https://docs.tomatophp.com');
+        \Laravel\Prompts\info('⭐ please gave us a start on any repo if you like it https://github.com/tomatophp');
+        \Laravel\Prompts\info('🤝 sponser us here https://github.com/sponsors/3x1io');
     }
 }
+
