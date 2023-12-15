@@ -22,6 +22,7 @@ class TomatoEcommerceBluePrint extends Blueprint
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoWallet::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoCms::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoProducts::class,
+            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoBranches::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoCoupons::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoOrders::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoInventory::class,

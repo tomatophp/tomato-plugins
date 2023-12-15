@@ -9,6 +9,7 @@ use TomatoPHP\ConsoleHelpers\Traits\RunCommand;
 use TomatoPHP\TomatoPlugins\Console\Packages\TomatoApi;
 use TomatoPHP\TomatoPlugins\Console\Packages\TomatoArtisan;
 use TomatoPHP\TomatoPlugins\Console\Packages\TomatoBackup;
+use TomatoPHP\TomatoPlugins\Console\Packages\TomatoBranches;
 use TomatoPHP\TomatoPlugins\Console\Packages\TomatoBrowser;
 use TomatoPHP\TomatoPlugins\Console\Packages\TomatoBuilder;
 use TomatoPHP\TomatoPlugins\Console\Packages\TomatoCategory;
@@ -108,6 +109,7 @@ class TomatoPluginsInstall extends Command
             (new TomatoWallet())->install();
             (new TomatoCms())->install();
             (new TomatoProducts())->install();
+            (new TomatoBranches())->install();
             (new TomatoCoupons())->install();
             (new TomatoOrders())->install();
             (new TomatoInventory())->install();
