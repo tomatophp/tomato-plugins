@@ -35,7 +35,7 @@ class TomatoPluginsServiceProvider extends ServiceProvider
 
             TomatoMenu::register([
                 Menu::make()
-                    ->group(__('Settings'))
+                    ->group(__('Tools'))
                     ->label(__('Plugins'))
                     ->route('admin.plugins.index')
                     ->icon('bx bxs-plug')
