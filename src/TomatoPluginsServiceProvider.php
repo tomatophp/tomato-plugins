@@ -32,14 +32,6 @@ class TomatoPluginsServiceProvider extends ServiceProvider
     {
         if((bool)config('tomato-plugins.active_ui')){
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-
-            TomatoMenu::register([
-                Menu::make()
-                    ->group(__('Tools'))
-                    ->label(__('Plugins'))
-                    ->route('admin.plugins.index')
-                    ->icon('bx bxs-plug')
-            ]);
         }
     }
 }
