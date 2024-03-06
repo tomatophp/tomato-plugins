@@ -31,7 +31,16 @@ class TomatoPluginsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if((bool)config('tomato-plugins.active_ui')){
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
+            TomatoMenu::register([
+                Menu::make()
+                    ->group(__("Settings"))
+                    ->label(__("Plugins"))
+                    ->icon("bx bxs-plug")
+                    ->route("admin.plugins.index")
+            ]);
         }
     }
 }
