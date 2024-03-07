@@ -23,6 +23,12 @@ class PluginsController extends Controller
 {
 
     public function index(Request $request){
+        $moduleFolder = File::exists(base_path('Modules'));
+        if(!$moduleFolder){
+            File::makeDirectory(base_path('Modules'));
+            File::put(base_path('Modules/.gitkeep'), '');
+        }
+
         return view('tomato-plugins::plugins.index', [
             "table" => (new \TomatoPHP\TomatoPlugins\Tables\PluginTable())
         ]);
