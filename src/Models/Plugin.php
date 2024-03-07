@@ -20,6 +20,8 @@ class Plugin extends Model
         'placeholder' => 'string',
         'icon' => 'string',
         'version' => 'string',
+        'docs' => 'string',
+        'github' => 'string',
         'active' => 'boolean',
     ];
 
@@ -46,6 +48,8 @@ class Plugin extends Model
                     "placeholder" => $info->placeholder,
                     "version" => $info->version,
                     "icon" => $info->icon,
+                    "github" => isset($info->github)?$info->github:null,
+                    "docs" => isset($info->docs)?$info->docs:null,
                     "active" => Module::find($info->name)->isEnabled()
                 ];
             });

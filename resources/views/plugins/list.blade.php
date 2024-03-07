@@ -33,37 +33,55 @@
                     {{ json_decode($item->description)->{app()->getLocale()} }}
                 </p>
             </div>
-            <div class="flex justifiy-center gap-1 my-4 px-4 border-t border-gray-100 pt-4">
-                @if(class_exists("Doctrine\DBAL\DriverManager") && (bool)config('tomato-plugins.allow_generator'))
-                    <x-tomato-admin-button  type="icon" href="{{route('admin.tables.index', ['module' => $item->module_name])}}" >
-                        <x-tomato-admin-tooltip :text="__('Tables')">
-                            <x-heroicon-s-server class="w-5 h-5" />
-                        </x-tomato-admin-tooltip>
-                    </x-tomato-admin-button>
-                @endif
-                @if((bool)config('tomato-plugins.allow_toggle'))
-                    @if(!$item->active)
-                        <x-tomato-admin-button confirm success method="POST" :data="['module' => $item->module_name]" type="icon" href="{{route('admin.plugins.update')}}" >
-                            <x-tomato-admin-tooltip :text="__('Enable Plugin')">
-                                <x-heroicon-s-check-circle class="w-5 h-5" />
+            <div class="flex justifiy-between gap-1 my-4 px-4 border-t border-gray-100 pt-4">
+                <div class="flex justifiy-start w-full">
+                    @if(class_exists("Doctrine\DBAL\DriverManager") && (bool)config('tomato-plugins.allow_generator'))
+                        <x-tomato-admin-button  type="icon" href="{{route('admin.tables.index', ['module' => $item->module_name])}}" >
+                            <x-tomato-admin-tooltip :text="__('Tables')">
+                                <x-heroicon-s-server class="w-5 h-5" />
                             </x-tomato-admin-tooltip>
                         </x-tomato-admin-button>
                     @endif
-                    @if($item->active)
-                        <x-tomato-admin-button confirm-danger danger method="POST" :data="['module' => $item->module_name]" type="icon" href="{{route('admin.plugins.update')}}" >
-                            <x-tomato-admin-tooltip :text="__('Disable Plugin')">
-                                <x-heroicon-s-x-circle class="w-5 h-5" />
+                    @if((bool)config('tomato-plugins.allow_toggle'))
+                        @if(!$item->active)
+                            <x-tomato-admin-button confirm success method="POST" :data="['module' => $item->module_name]" type="icon" href="{{route('admin.plugins.update')}}" >
+                                <x-tomato-admin-tooltip :text="__('Enable Plugin')">
+                                    <x-heroicon-s-check-circle class="w-5 h-5" />
+                                </x-tomato-admin-tooltip>
+                            </x-tomato-admin-button>
+                        @endif
+                        @if($item->active)
+                            <x-tomato-admin-button confirm-danger danger method="POST" :data="['module' => $item->module_name]" type="icon" href="{{route('admin.plugins.update')}}" >
+                                <x-tomato-admin-tooltip :text="__('Disable Plugin')">
+                                    <x-heroicon-s-x-circle class="w-5 h-5" />
+                                </x-tomato-admin-tooltip>
+                            </x-tomato-admin-button>
+                        @endif
+                    @endif
+                    @if((bool)config('tomato-plugins.allow_destroy'))
+                        <x-tomato-admin-button confirm-danger method="POST" :data="['module' => $item->module_name]" danger type="icon" href="{{route('admin.plugins.remove')}}">
+                            <x-tomato-admin-tooltip :text="__('Delete Plugin')">
+                                <x-heroicon-s-trash class="w-5 h-5" />
                             </x-tomato-admin-tooltip>
                         </x-tomato-admin-button>
                     @endif
-                @endif
-                @if((bool)config('tomato-plugins.allow_destroy'))
-                    <x-tomato-admin-button confirm-danger method="POST" :data="['module' => $item->module_name]" danger type="icon" href="{{route('admin.plugins.remove')}}">
-                        <x-tomato-admin-tooltip :text="__('Delete Plugin')">
-                            <x-heroicon-s-trash class="w-5 h-5" />
+                </div>
+                <div class="w-full flex justify-end gap-4">
+                    @if($item->github)
+                        <x-tomato-admin-tooltip :text="__('Github')">
+                            <a href="{{$item->github}}" target="_blank">
+                                <i class="bx text-xl bxl-github text-gray-900 hover:text-gray-600 cursor-pointer"></i>
+                            </a>
                         </x-tomato-admin-tooltip>
-                    </x-tomato-admin-button>
-                @endif
+                    @endif
+                    @if($item->docs)
+                        <x-tomato-admin-tooltip :text="__('Docs')">
+                            <a href="{{$item->docs}}" target="_blank">
+                                <i class="bx text-xl bx-file text-primary-500 hover:text-gray-600 cursor-pointer"></i>
+                            </a>
+                        </x-tomato-admin-tooltip>
+                    @endif
+                </div>
             </div>
         </div>
     @endforeach
