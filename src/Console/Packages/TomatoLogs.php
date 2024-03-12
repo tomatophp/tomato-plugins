@@ -12,6 +12,7 @@ class TomatoLogs extends TomatoPackage
         $this->label('Tomato Logs');
         $this->description('Log Viewer for TomatoPHP using Laravel Log Reader');
         $this->package('tomatophp/tomato-logs');
+        $this->module('tomatophp/tomato-logs-module');
         $this->command('tomato-logs:install');
     }
 }

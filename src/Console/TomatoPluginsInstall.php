@@ -94,42 +94,50 @@ class TomatoPluginsInstall extends Command
             $getClass = app('TomatoPHP\\TomatoPlugins\\Console\\Blueprints\\' . $className);
             $blueprintNames[$className] = $getClass->getLabel();
         }
+        $pluginSystem = select(
+            label: 'Select Plugin System',
+            options: [
+                'modules' => 'Modules',
+                'packages' => 'Packages'
+            ],
+            required: true
+        );
         $all = confirm('Do You went to install all plugins for tomato framework?');
         if ($all) {
-            (new TomatoApi())->install();
-            (new TomatoPHP())->install();
-            (new TomatoRoles())->install();
-            (new TomatoSettings())->install();
-            (new TomatoTranslations())->install();
-            (new TomatoLocations())->install();
-            (new TomatoNotifications())->install();
-            (new TomatoCategory())->install();
-            (new TomatoMenus())->install();
-            (new TomatoCrm())->install();
-            (new TomatoWallet())->install();
-            (new TomatoCms())->install();
-            (new TomatoProducts())->install();
-            (new TomatoBranches())->install();
-            (new TomatoCoupons())->install();
-            (new TomatoOrders())->install();
-            (new TomatoInventory())->install();
-            (new TomatoInvoices())->install();
-            (new TomatoEcommerce())->install();
-            (new TomatoThemes())->install();
-            (new TomatoSections())->install();
-            (new TomatoPos())->install();
-            (new TomatoChat())->install();
-            (new TomatoForms())->install();
-            (new TomatoFlutter())->install();
-            (new TomatoBuilder())->install();
-            (new TomatoBackup())->install();
-            (new TomatoLogs())->install();
-            (new TomatoBrowser())->install();
-            (new TomatoArtisan())->install();
-            (new TomatoDusk())->install();
-            (new TomatoFigma())->install();
-            (new TomatoSaas())->install();
-            (new TomatoSubscription())->install();
+            (new TomatoApi())->install($pluginSystem);
+            (new TomatoPHP())->install($pluginSystem);
+            (new TomatoRoles())->install($pluginSystem);
+            (new TomatoSettings())->install($pluginSystem);
+            (new TomatoTranslations())->install($pluginSystem);
+            (new TomatoLocations())->install($pluginSystem);
+            (new TomatoNotifications())->install($pluginSystem);
+            (new TomatoCategory())->install($pluginSystem);
+            (new TomatoMenus())->install($pluginSystem);
+            (new TomatoCrm())->install($pluginSystem);
+            (new TomatoWallet())->install($pluginSystem);
+            (new TomatoCms())->install($pluginSystem);
+            (new TomatoProducts())->install($pluginSystem);
+            (new TomatoBranches())->install($pluginSystem);
+            (new TomatoCoupons())->install($pluginSystem);
+            (new TomatoOrders())->install($pluginSystem);
+            (new TomatoInventory())->install($pluginSystem);
+            (new TomatoInvoices())->install($pluginSystem);
+            (new TomatoEcommerce())->install($pluginSystem);
+            (new TomatoThemes())->install($pluginSystem);
+            (new TomatoSections())->install($pluginSystem);
+            (new TomatoPos())->install($pluginSystem);
+            (new TomatoChat())->install($pluginSystem);
+            (new TomatoForms())->install($pluginSystem);
+            (new TomatoFlutter())->install($pluginSystem);
+            (new TomatoBuilder())->install($pluginSystem);
+            (new TomatoBackup())->install($pluginSystem);
+            (new TomatoLogs())->install($pluginSystem);
+            (new TomatoBrowser())->install($pluginSystem);
+            (new TomatoArtisan())->install($pluginSystem);
+            (new TomatoDusk())->install($pluginSystem);
+            (new TomatoFigma())->install($pluginSystem);
+            (new TomatoSaas())->install($pluginSystem);
+            (new TomatoSubscription())->install($pluginSystem);
             \Laravel\Prompts\info('🍅 All Tomato Framework Plugins Has Been installed successfully.');
         } else {
             $installBluePrint = confirm('Do You went to install a blueprint for your project?');
@@ -139,7 +147,7 @@ class TomatoPluginsInstall extends Command
                     options: $blueprintNames,
                     required: true
                 );
-                app('TomatoPHP\\TomatoPlugins\\Console\\Blueprints\\' . $blueprint)->install();
+                app('TomatoPHP\\TomatoPlugins\\Console\\Blueprints\\' . $blueprint)->install($pluginSystem);
             }
             else {
                 $installSelectedPlugins = confirm('Do You went to install a selected plugins for your project?');
@@ -151,7 +159,7 @@ class TomatoPluginsInstall extends Command
                     );
 
                     foreach ($selectedPlugins as $pluginItem){
-                        app('TomatoPHP\\TomatoPlugins\\Console\\Packages\\' . $pluginItem)->install();
+                        app('TomatoPHP\\TomatoPlugins\\Console\\Packages\\' . $pluginItem)->install($pluginSystem);
                     }
                 }
             }

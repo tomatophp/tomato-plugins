@@ -12,6 +12,7 @@ class TomatoSupport extends TomatoPackage
         $this->label('Tomato Support');
         $this->description('Ticketing and support system with API for tomato admin');
         $this->package('tomatophp/tomato-support');
+        $this->module('tomatophp/tomato-support-module');
         $this->command('tomato-support:install');
     }
 }

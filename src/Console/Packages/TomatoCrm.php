@@ -13,6 +13,7 @@ class TomatoCrm extends TomatoPackage
         $this->label('Tomato CRM');
         $this->description('manage category/tags/types for any model with splade/tomato PHP');
         $this->package('tomatophp/tomato-crm');
+        $this->module('tomatophp/tomato-crm-module');
         $this->command('tomato-crm:install');
     }
 

@@ -12,6 +12,7 @@ class TomatoMenus extends TomatoPackage
         $this->label('Tomato Menus');
         $this->description('Menus manager to build your menus with json file or database provider');
         $this->package('tomatophp/tomato-menus');
+        $this->module('tomatophp/tomato-menus-module');
         $this->command('tomato-menus:install');
     }
 }

@@ -15,11 +15,7 @@ class TomatoBranches extends TomatoPackage
         $this->label('Tomato Branches');
         $this->description('Branches/Company Management for TomatoPHP');
         $this->package('tomatophp/tomato-branches');
+        $this->module('tomatophp/tomato-branches-module');
         $this->command('tomato-branches:install');
-    }
-
-
-    public function custom(): void
-    {
     }
 }

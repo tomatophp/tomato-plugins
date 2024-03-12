@@ -12,6 +12,7 @@ class TomatoBackup extends TomatoPackage
         $this->label('Tomato Backup');
         $this->description('Backup plugin for TomatoPHP build with spatie laravel-backup');
         $this->package('tomatophp/tomato-backup');
+        $this->module('tomatophp/tomato-backup-module');
         $this->command('tomato-backup:install');
     }
 }

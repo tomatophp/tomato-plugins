@@ -12,6 +12,7 @@ class TomatoInvoices extends TomatoPackage
         $this->label('Tomato Invoices');
         $this->description('Invoices Generator and Management for Tomato PHP');
         $this->package('tomatophp/tomato-invoices');
+        $this->module('tomatophp/tomato-invoices-module');
         $this->command('tomato-invoices:install');
     }
 }

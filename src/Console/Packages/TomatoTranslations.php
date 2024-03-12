@@ -12,6 +12,7 @@ class TomatoTranslations extends TomatoPackage
         $this->label('Tomato Translations');
         $this->description('Database Base Translations Keys with Google Translations API Integration');
         $this->package('tomatophp/tomato-translations');
+        $this->module('tomatophp/tomato-translations-module');
         $this->command('tomato-translations:install');
     }
 }

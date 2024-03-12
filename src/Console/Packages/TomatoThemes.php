@@ -12,6 +12,7 @@ class TomatoThemes extends TomatoPackage
         $this->label('Tomato Themes');
         $this->description('A Theme System Like Wordpress on your Tomato Admin');
         $this->package('tomatophp/tomato-themes');
+        $this->module('tomatophp/tomato-themes-module');
         $this->command('tomato-themes:install');
     }
 }

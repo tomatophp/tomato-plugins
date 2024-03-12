@@ -13,6 +13,7 @@ class TomatoRoles extends TomatoPackage
         $this->label('Tomato Roles');
         $this->description('ACL Roles / Permissions for TomatoPHP build with Splade build with Laravel-permission');
         $this->package('tomatophp/tomato-roles');
+        $this->module('tomatophp/tomato-roles-module');
         $this->command('tomato-roles:install');
     }
 

@@ -12,6 +12,7 @@ class TomatoArtisan extends TomatoPackage
         $this->label('Tomato Artisan');
         $this->description('Artisan terminal to run artisan commands using GUI');
         $this->package('tomatophp/tomato-artisan');
+        $this->module('tomatophp/tomato-artisan-module');
         $this->command('tomato-artisan:install');
     }
 }

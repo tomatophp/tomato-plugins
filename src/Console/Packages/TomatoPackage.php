@@ -12,19 +12,36 @@ abstract class TomatoPackage
 
     private ?string $label = null;
     private ?string $package = null;
+    private ?string $module = null;
     private ?string $command = null;
     private ?string $description = null;
 
-    public function install(): void
+    public function install(string $pluginSystem): void
     {
-        info('🍅 Install '.$this->label.' plugin.');
-        if($this->description){
-            warning($this->description);
+        if($pluginSystem === 'modules'){
+            if($this->module){
+                info('🍅 Install '.$this->label.' plugin.');
+                if($this->description){
+                    warning($this->description);
+                }
+
+                $this->requireComposerPackages($this->module);
+                $this->artisanCommand([$this->command]);
+                $this->custom();
+                info('🍅 '.$this->label.' installed successfully.');
+            }
         }
-        $this->requireComposerPackages($this->package);
-        $this->artisanCommand([$this->command]);
-        $this->custom();
-        info('🍅 '.$this->label.' installed successfully.');
+        else {
+            info('🍅 Install '.$this->label.' plugin.');
+            if($this->description){
+                warning($this->description);
+            }
+            $this->requireComposerPackages($this->package);
+            $this->artisanCommand([$this->command]);
+            $this->custom();
+            info('🍅 '.$this->label.' installed successfully.');
+        }
+
     }
 
     public function custom():void
@@ -38,6 +55,10 @@ abstract class TomatoPackage
 
     public function package(string $package){
         $this->package = $package;
+    }
+
+    public function module(string $module){
+        $this->module = $module;
     }
 
     public function command(string $command){

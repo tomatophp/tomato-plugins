@@ -12,6 +12,7 @@ class TomatoLocations extends TomatoPackage
         $this->label('Tomato Locations');
         $this->description('Database seeds for Locations plugin for TomatoPHP');
         $this->package('tomatophp/tomato-locations');
+        $this->module('tomatophp/tomato-locations-module');
         $this->command('tomato-locations:install');
     }
 }

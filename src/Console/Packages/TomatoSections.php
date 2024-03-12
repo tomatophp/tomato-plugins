@@ -12,6 +12,7 @@ class TomatoSections extends TomatoPackage
         $this->label('Tomato Sections');
         $this->description('Sections For Tomato Themes To build any app with Theme Builder');
         $this->package('tomatophp/tomato-sections');
+        $this->module('tomatophp/tomato-sections-module');
         $this->command('tomato-sections:install');
     }
 }

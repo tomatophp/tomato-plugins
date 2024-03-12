@@ -12,6 +12,7 @@ class TomatoCms extends TomatoPackage
         $this->label('Tomato CMS');
         $this->description('full CMS System to manage your content build for Tomato PHP');
         $this->package('tomatophp/tomato-cms');
+        $this->module('tomatophp/tomato-cms-module');
         $this->command('tomato-cms:install');
     }
 }

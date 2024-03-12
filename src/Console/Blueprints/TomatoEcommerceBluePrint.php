@@ -8,7 +8,6 @@ class TomatoEcommerceBluePrint extends Blueprint
     {
         $this->label('Tomato Ecommerce Blueprint');
         $this->packages([
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoApi::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoPHP::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoRoles::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoSettings::class,
@@ -30,6 +29,7 @@ class TomatoEcommerceBluePrint extends Blueprint
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoSections::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoThemes::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoEcommerce::class,
+            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoEcommerceTheme::class,
         ]);
     }
 }

@@ -12,6 +12,7 @@ class TomatoForms extends TomatoPackage
         $this->label('Tomato Forms');
         $this->description('Build a full Forms with Fields on Database and save it to user meta');
         $this->package('tomatophp/tomato-forms');
+        $this->module('tomatophp/tomato-forms-module');
         $this->command('tomato-forms:install');
     }
 }

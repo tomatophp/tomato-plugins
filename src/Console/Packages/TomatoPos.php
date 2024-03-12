@@ -12,6 +12,7 @@ class TomatoPos extends TomatoPackage
         $this->label('Tomato POS');
         $this->description('Full POS system for tomato ordering and inventory');
         $this->package('tomatophp/tomato-pos');
+        $this->module('tomatophp/tomato-pos-module');
         $this->command('tomato-pos:install');
     }
 }

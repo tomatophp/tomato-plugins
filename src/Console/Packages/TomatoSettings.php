@@ -12,6 +12,7 @@ class TomatoSettings extends TomatoPackage
         $this->label('Tomato Settings');
         $this->description('Full Settings Generator / Manager with GUI for TomatoPHP build with Splade build with Laravel-settings');
         $this->package('tomatophp/tomato-settings');
+        $this->module('tomatophp/tomato-settings-module');
         $this->command('tomato-settings:install');
     }
 }

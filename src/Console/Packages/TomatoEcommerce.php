@@ -13,6 +13,7 @@ class TomatoEcommerce extends TomatoPackage
         $this->label('Tomato Ecommerce');
         $this->description('a full frontend/backend e-commerce system built on top of TomatoPHP, with Cart functions and ordering functions');
         $this->package('tomatophp/tomato-ecommerce');
+        $this->module('tomatophp/tomato-ecommerce-module');
         $this->command('tomato-ecommerce:install');
     }
 

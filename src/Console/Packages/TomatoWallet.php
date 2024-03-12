@@ -13,6 +13,7 @@ class TomatoWallet extends TomatoPackage
         $this->label('Tomato Wallet');
         $this->description('Account Wallet Manager & Payment Integrations For TomatoPHP and TomatoCRM');
         $this->package('tomatophp/tomato-wallet');
+        $this->module('tomatophp/tomato-wallet-module');
         $this->command('tomato-wallet:install');
     }
 

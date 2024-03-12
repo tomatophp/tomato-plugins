@@ -13,6 +13,7 @@ class TomatoNotifications extends TomatoPackage
         $this->label('Tomato Notifications');
         $this->description('Laravel Notifications Channel with GUI to send notifications with templates for TomatoPHP build with Splade');
         $this->package('tomatophp/tomato-notifications');
+        $this->module('tomatophp/tomato-notifications-module');
         $this->command('tomato-notifications:install');
     }
 

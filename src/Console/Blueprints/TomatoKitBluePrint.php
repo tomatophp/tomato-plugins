@@ -8,7 +8,6 @@ class TomatoKitBluePrint extends Blueprint
     {
         $this->label('Tomato Starter Kit Blueprint');
         $this->packages([
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoApi::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoPHP::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoRoles::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoSettings::class,

@@ -12,6 +12,7 @@ class TomatoCategory extends TomatoPackage
         $this->label('Tomato Category');
         $this->description('manage category/tags/types for any model with splade/tomato PHP');
         $this->package('tomatophp/tomato-category');
+        $this->module('tomatophp/tomato-category-module');
         $this->command('tomato-category:install');
     }
 }

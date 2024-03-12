@@ -12,6 +12,7 @@ class TomatoCoupons extends TomatoPackage
         $this->label('Tomato Coupons');
         $this->description('Offers and coupons, gift cards manager for TomatoPHP e-commerce system.');
         $this->package('tomatophp/tomato-coupons');
+        $this->module('tomatophp/tomato-coupons-module');
         $this->command('tomato-coupons:install');
     }
 }

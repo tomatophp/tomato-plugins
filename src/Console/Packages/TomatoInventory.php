@@ -12,6 +12,7 @@ class TomatoInventory extends TomatoPackage
         $this->label('Tomato Inventory');
         $this->description('Inventory Management for any type of product with reports and barcode print');
         $this->package('tomatophp/tomato-inventory');
+        $this->module('tomatophp/tomato-inventory-module');
         $this->command('tomato-inventory:install');
     }
 }

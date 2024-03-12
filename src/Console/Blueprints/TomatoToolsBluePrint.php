@@ -10,18 +10,12 @@ class TomatoToolsBluePrint extends Blueprint
 
         $this->label('Tomato Tools Blueprint');
         $this->packages([
+            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoPHP::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoBackup::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoLogs::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoBrowser::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoArtisan::class,
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoDusk::class,
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoFigma::class,
             \TomatoPHP\TomatoPlugins\Console\Packages\TomatoForms::class,
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoBuilder::class,
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoPHP::class,
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoFlutter::class,
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoSaas::class,
-            \TomatoPHP\TomatoPlugins\Console\Packages\TomatoChat::class,
         ]);
     }
 }

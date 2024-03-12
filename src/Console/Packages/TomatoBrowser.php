@@ -12,6 +12,7 @@ class TomatoBrowser extends TomatoPackage
         $this->label('Tomato Browser');
         $this->description('Browser to the files inside your app build for TomatoPHP');
         $this->package('tomatophp/tomato-browser');
+        $this->module('tomatophp/tomato-browser-module');
         $this->command('tomato-browser:install');
     }
 }

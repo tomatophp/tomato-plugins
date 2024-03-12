@@ -12,6 +12,7 @@ class TomatoProducts extends TomatoPackage
         $this->label('Tomato Products');
         $this->description('A Full Products Management With tons of functions and multi variations and prices, stock.');
         $this->package('tomatophp/tomato-products');
+        $this->module('tomatophp/tomato-products-module');
         $this->command('tomato-products:install');
     }
 }

@@ -8,10 +8,10 @@ abstract class Blueprint
     private ?string $label = null;
     private array $packages = [];
 
-    public function install(): void
+    public function install(string $pluginSystem): void
     {
         foreach ($this->packages as $package){
-            app($package)->install();
+            app($package)->install($pluginSystem);
         }
         info('🍅 '.$this->label.' blueprint installed successfully.');
     }

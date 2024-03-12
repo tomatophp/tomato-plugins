@@ -13,6 +13,7 @@ class TomatoOrders extends TomatoPackage
         $this->label('Tomato Orders');
         $this->description('full ordering and shipping system management with invoices templates for TomatoPHP');
         $this->package('tomatophp/tomato-orders');
+        $this->module('tomatophp/tomato-orders-module');
         $this->command('tomato-orders:install');
     }
 
