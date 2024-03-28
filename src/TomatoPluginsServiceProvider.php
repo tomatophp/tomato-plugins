@@ -14,6 +14,7 @@ class TomatoPluginsServiceProvider extends ServiceProvider
         //Register generate command
         $this->commands([
            \TomatoPHP\TomatoPlugins\Console\TomatoPluginsInstall::class,
+           \TomatoPHP\TomatoPlugins\Console\TomatoPluginsCrudGenerator::class,
         ]);
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'tomato-plugins');

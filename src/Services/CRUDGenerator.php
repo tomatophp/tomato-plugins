@@ -2,9 +2,6 @@
 
 namespace TomatoPHP\TomatoPlugins\Services;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Exception;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -36,6 +33,7 @@ class CRUDGenerator
 {
     private string $modelName;
     private string $stubPath;
+    private array $cols=[];
 
     //Handler
     use HandleStub;
@@ -47,7 +45,6 @@ class CRUDGenerator
     use GenerateMigrations;
     use GenerateCols;
     use GenerateModel;
-    use GenerateCasts;
     use GenerateTable;
     use GenerateRules;
     use GenerateController;
@@ -75,7 +72,7 @@ class CRUDGenerator
      * @throws Exception
      */
     public function __construct(
-        private Table $table,
+        private ?Table $table = null,
         private string | null $tableName = null,
         private string | bool | null $moduleName = null,
         private bool $isBuilder = false,
@@ -92,20 +89,16 @@ class CRUDGenerator
         private bool $json  = false,
         private bool $menu  = false,
     ){
-        $this->tableName = $this->table->name;
-        $this->moduleName = $this->table->module;
+        if(!$this->tableName){
+            $this->tableName = $this->table->name;
 
-        $connectionParams = [
-            'dbname' => config('database.connections.mysql.database'),
-            'user' => config('database.connections.mysql.username'),
-            'password' => config('database.connections.mysql.password'),
-            'host' => config('database.connections.mysql.host'),
-            'driver' => 'pdo_mysql',
-        ];
-
-        $this->connection = DriverManager::getConnection($connectionParams);
+        }
+        if(!$this->moduleName){
+            $this->moduleName = $this->table->module;
+        }
         $this->modelName = Str::ucfirst(Str::singular(Str::camel($this->tableName)));
         $this->stubPath = base_path('vendor/tomatophp/tomato-plugins/stubs') . "/";
+        $this->cols = $this->getCols();
     }
 
     /**
@@ -121,7 +114,6 @@ class CRUDGenerator
             sleep(3);
             if($this->models){
                 $this->generateModel();
-                $this->generateCasts();
             }
             if($this->tables){
                 $this->generateTable();

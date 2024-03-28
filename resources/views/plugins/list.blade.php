@@ -35,7 +35,7 @@
             </div>
             <div class="flex justifiy-between gap-1 my-4 px-4 border-t border-gray-100 pt-4">
                 <div class="flex justifiy-start w-full">
-                    @if(class_exists("Doctrine\DBAL\DriverManager") && (bool)config('tomato-plugins.allow_generator'))
+                    @if((bool)config('tomato-plugins.allow_generator'))
                         <x-tomato-admin-button  type="icon" href="{{route('admin.tables.index', ['module' => $item->module_name])}}" >
                             <x-tomato-admin-tooltip :text="__('Tables')">
                                 <x-heroicon-s-server class="w-5 h-5" />
