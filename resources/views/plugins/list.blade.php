@@ -85,7 +85,7 @@
             </div>
         </div>
     @endforeach
-    @if((bool)config('tomato-plugins.allow_create'))
+    @if((bool)config('tomato-plugins.allow_create') && $table->resource->count() == 0)
         <x-splade-link modal :href="route('admin.plugins.create')" class="h-full rounded-lg border border-dashed hover:border-solid hover:border-primary-500 border-4 border-gray-200 hover:border-none hover:bg-primary-500 text-gray-300 hover:text-white">
             <div class="flex flex-col justify-center h-full items-center py-8">
                 <x-heroicon-s-plus-circle class="w-32 h-32"/>

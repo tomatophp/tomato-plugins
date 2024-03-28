@@ -73,6 +73,6 @@ class PluginTable extends AbstractTable
                 sortable: true
             )
             ->export()
-            ->paginate(10);
+            ->paginate(12);
     }
 }
