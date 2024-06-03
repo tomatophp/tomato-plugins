@@ -3,6 +3,7 @@
 namespace TomatoPHP\TomatoPlugins\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Schema\Builder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Nwidart\Modules\Facades\Module;
@@ -47,11 +48,9 @@ class TomatoPluginsCrudGenerator extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(Builder $schema)
     {
-        $tables = collect(\DB::select('SHOW TABLES'))->map(function ($item){
-            return $item->{'Tables_in_'.config('database.connections.mysql.database')};
-        })->toArray();
+        $tables = $schema->getTableListing();
 
         $tableName = $this->argument('table') && $this->argument('table') != "0" ? $this->argument('table') : search(
             label: 'Please input your table name you went to create CRUD?',
